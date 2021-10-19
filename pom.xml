@@ -16,6 +16,33 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <name>demo</name>
+    <description>demo project</description>
+    <url>https://acme.com</url>
+    <inceptionYear>2021</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://spdx.org/licenses/Apache-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>aalmiray</id>
+            <name>Andres Almiray</name>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:aalmiray/workshop.git</connection>
+        <developerConnection>scm:git:git@github.com:aalmiray/workshop.git</developerConnection>
+        <url>git@github.com:aalmiray/workshop.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <modules>
         <module>bom</module>
         <module>api</module>
