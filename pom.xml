@@ -138,6 +138,83 @@
                 <artifactId>jreleaser-maven-plugin</artifactId>
                 <version>0.7.0</version>
                 <inherited>false</inherited>
+                <configuration>
+                    <jreleaser>
+                        <release>
+                            <github>
+                                <overwrite>true</overwrite>
+                                <changelog>
+                                    <formatted>ALWAYS</formatted>
+                                    <format>- {{commitShortHash}} {{commitTitle}}</format>
+                                    <contributors>
+                                        <format>- {{contributorName}}</format>
+                                    </contributors>
+                                    <labelers>
+                                        <labeler>
+                                            <label>dependencies</label>
+                                            <title>deps:</title>
+                                        </labeler>
+                                        <labeler>
+                                            <label>issue</label>
+                                            <title>fix:</title>
+                                        </labeler>
+                                        <labeler>
+                                            <label>feature</label>
+                                            <title>feat:</title>
+                                        </labeler>
+                                        <labeler>
+                                            <label>task</label>
+                                            <title>chore:</title>
+                                        </labeler>
+                                        <labeler>
+                                            <label>build</label>
+                                            <title>build:</title>
+                                        </labeler>
+                                    </labelers>
+                                    <categories>
+                                        <category>
+                                            <title>🚀 Features</title>
+                                            <labels>feature</labels>
+                                        </category>
+                                        <category>
+                                            <title>✅ Issues</title>
+                                            <labels>issue</labels>
+                                        </category>
+                                        <category>
+                                            <title>🧰 Tasks</title>
+                                            <labels>task</labels>
+                                        </category>
+                                        <category>
+                                            <title>⚙️  Dependencies</title>
+                                            <labels>dependencies</labels>
+                                        </category>
+                                        <category>
+                                            <title>🛠  Build</title>
+                                            <labels>build</labels>
+                                        </category>
+                                    </categories>
+                                    <replacers>
+                                        <replacer>
+                                            <search>fix:\s</search>
+                                        </replacer>
+                                        <replacer>
+                                            <search>feat:\s</search>
+                                        </replacer>
+                                        <replacer>
+                                            <search>chore:\s</search>
+                                        </replacer>
+                                        <replacer>
+                                            <search>build:\s</search>
+                                        </replacer>
+                                        <replacer>
+                                            <search>deps:\s</search>
+                                        </replacer>
+                                    </replacers>
+                                </changelog>
+                            </github>
+                        </release>
+                    </jreleaser>
+                </configuration>
             </plugin>
         </plugins>
     </build>
