@@ -132,6 +132,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>org.jreleaser</groupId>
+                <artifactId>jreleaser-maven-plugin</artifactId>
+                <version>0.7.0</version>
+                <inherited>false</inherited>
+            </plugin>
         </plugins>
     </build>
 </project>
