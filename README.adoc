@@ -1,0 +1,116 @@
+= Maven demo application
+
+1. Check out the project.
+2. Copy this file to an external directory
+3. Checkout tag `step01`, then follow each step.
+
+If you get stuck with a particular step, stash or undo your changes and checkout the next tag.
+
+== Steps
+
+=== step01
+
+Add the Maven wrapper.
+The Maven wrapper ensures your project may be built with a particular version of Maven.
+
+```
+$ mvn -N io.takari:maven:0.7.7:wrapper
+```
+
+=== step02
+
+Check Maven Central guidelines.
+You may or may not publish JARs and POMs to Maven Central.
+If you do you must follow certain guidelines.
+If you do not it's still a good idea to add the minimum required metadata.
+
+```
+$ ./mvnw org.kordamp.maven:pomchecker-maven-plugin:1.2.0:check-maven-central
+```
+
+Modify all pom.xml files until there are no more warnings.
+Disable the -SNAPSHOT warning by defining an extra command parameter:
+
+```
+$ ./mvnw org.kordamp.maven:pomchecker-maven-plugin:1.2.0:check-maven-central -Dchecker.release=false
+```
+
+NOTE: Maven Central requires `-sources.jar`, `-javadoc.jar` for each project, also all files to be
+deployed must be signed with PGP. We'll skip these settings for now.
+
+=== step03
+
+Fix all plugin versions.
+This makes your build more resilient to updates and prepares it for reproducible builds.
+
+Find which plugins have newer versions by invoking
+
+```
+$ ./mvnw versions:display-plugin-updates
+```
+
+Modify parent pom.xml by adding versions for these plugins:
+clean, compiler, resources, jar, install, deploy, surefire, site
+
+More information on reproducible builds can be found at:
+
+ - https://maven.apache.org/guides/mini/guide-reproducible-builds.html
+ - https://maven.apache.org/plugins/maven-artifact-plugin/index.html
+
+=== step04
+
+Configure the enforcer plugin to validate the Maven and Java versions
+
+```
+$ ./mvnw validate
+```
+
+Fix any violations found, for example the Maven version set by the wrapper in `.mvn/wrapper/maven-wrapper.properties`.
+
+=== step05
+
+Configure the exec plugin to run the cli project.
+
+```
+$ ./mvnw compile exec:java
+```
+
+Did it work?
+You must configure the exec plugin at the parent, disable it for all, enable it only for the cli project.
+
+=== step06
+
+Create binary distributions (zip/tar) for the cli project.
+Configure the appassembler and assembly plugins.
+
+```
+$ ./mvnw package
+```
+
+This time updating the cli project is enough if the appassembler and assembly plugns are bound to the `package` phase.
+For a larger project you might want to put those plugins behind a profile.
+
+=== step07
+
+Configure the JReleaser plugin at the parent pom.xml
+
+```
+$ ./mvnw -pl :parent jreleaser:config
+```
+
+=== step08
+
+Add changelog formatting instructions to JReleaser
+
+```
+$ ./mvnw -pl :parent jreleaser:changelog
+```
+
+=== step09
+
+Add binary distributions to JReleaser
+
+```
+$ ./mvnw -pl :parent jreleaser:full-release
+```
+
