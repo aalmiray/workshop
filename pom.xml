@@ -213,6 +213,15 @@
                                 </changelog>
                             </github>
                         </release>
+                        <distributions>
+                            <cli>
+                                <artifacts>
+                                    <artifact>
+                                        <path>{{distributionName}}/target/distributions/{{distributionName}}-{{projectVersion}}.zip</path>
+                                    </artifact>
+                                </artifacts>
+                            </cli>
+                        </distributions>
                     </jreleaser>
                 </configuration>
             </plugin>
